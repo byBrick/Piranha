@@ -394,6 +394,13 @@ namespace Piranha.Models.Manager.ContentModels
 				media.Filename = FileUrl.Substring(FileUrl.LastIndexOf('/') + 1) ;
 				media.ContentType = web.ResponseHeaders["Content-Type"] ;
 				media.Body = data ;
+
+				if (media.ContentType != null) {
+					var parts = media.ContentType.Split(new char[] { ';' });
+					if (parts.Length > 1)
+						media.ContentType = parts[0].Trim();
+					else media.ContentType = media.ContentType.Trim();
+				}
 			} else {
 				media = null ;
 			}
